@@ -32,7 +32,7 @@
 
 5. 配置项目：在IntelliJ IDEA中打开项目的配置文件"application.properties"，将其中的数据库连接信息改为本地数据库的连接信息。
 
-6. 运行项目：在IntelliJ IDEA中点击顶部工具栏上的"Run"按钮，选择刚刚配置好的Tomcat服务器，然后点击"Run"按钮启动服务器。启动完成后，使用浏览器访问（"http://localhost:8080/JavaWebMovieSystem/ "）即可进入电影系统首页。
+6. 运行项目：在IntelliJ IDEA中点击顶部工具栏上的"Run"按钮，选择刚刚配置好的Tomcat服务器，然后点击"Run"按钮启动服务器。启动完成后，使用浏览器访问（"http://localhost:8080/movieWeb/ "）即可进入电影系统首页。
 
 7. 注册账户：在首页中点击右上角的"Register"按钮，进入注册页面，输入注册信息并点击"Register"按钮即可完成注册。
 
