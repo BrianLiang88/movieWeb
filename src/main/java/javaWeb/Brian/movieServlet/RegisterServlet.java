@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             // 释放资源
-            DBUtil.close(conn, pstmt, rs);
+            DBUtil.close(conn, pstmt);
         }
     }
 }

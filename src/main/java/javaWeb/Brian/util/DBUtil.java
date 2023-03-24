@@ -24,31 +24,24 @@ public class DBUtil {
         return conn;
     }
 
-    public static void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+    public static void close(Connection conn, PreparedStatement pstmt) {
         try {
-            if (rs != null) {
-                rs.close();
+            if (pstmt != null) {
+                pstmt.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if (conn != null) {
-                        conn.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+        }
+        try {
+            if (conn != null) {
+                conn.close();
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
+
 
 
 

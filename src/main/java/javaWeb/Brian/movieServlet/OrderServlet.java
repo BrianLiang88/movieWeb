@@ -42,8 +42,7 @@ public class OrderServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            DBUtil.close(pstmt);
-            DBUtil.close(conn);
+            DBUtil.close(conn, pstmt);
         }
     }
 
