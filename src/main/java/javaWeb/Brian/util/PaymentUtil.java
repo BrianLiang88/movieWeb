@@ -3,6 +3,7 @@ package javaWeb.Brian.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 public class PaymentUtil {
@@ -34,6 +35,8 @@ public class PaymentUtil {
         return sb.toString();
     }
 
+
+
     /**
      * 生成签名
      * @param orderId 订单号
@@ -52,6 +55,47 @@ public class PaymentUtil {
         }
         sb.append("key=").append(MERCHANT_KEY);
         return md5(sb.toString());
+    }
+
+    public static String pay(String orderId, String body, String subject, String totalFee) {
+        // 构造请求参数
+        SortedMap<String, String> paramMap = new TreeMap<>();
+        paramMap.put("out_trade_no", orderId);
+        paramMap.put("body", body);
+        paramMap.put("subject", subject);
+        paramMap.put("total_fee", totalFee);
+        paramMap.put("spbill_create_ip", "127.0.0.1");
+        paramMap.put("notify_url", "http://www.example.com/notify");
+        paramMap.put("trade_type", "NATIVE");
+        paramMap.put("nonce_str", getNonceStr());
+        paramMap.put("appid", "your_app_id");
+        paramMap.put("mch_id", "your_mch_id");
+
+        // 签名
+        String sign = sign(paramMap, "your_key");
+
+        // 构造 XML 请求
+        String requestXml = "<xml>"
+                + "<appid>" + paramMap.get("appid") + "</appid>"
+                + "<body>" + paramMap.get("body") + "</body>"
+                + "<mch_id>" + paramMap.get("mch_id") + "</mch_id>"
+                + "<nonce_str>" + paramMap.get("nonce_str") + "</nonce_str>"
+                + "<notify_url>" + paramMap.get("notify_url") + "</notify_url>"
+                + "<out_trade_no>" + paramMap.get("out_trade_no") + "</out_trade_no>"
+                + "<spbill_create_ip>" + paramMap.get("spbill_create_ip") + "</spbill_create_ip>"
+                + "<subject>" + paramMap.get("subject") + "</subject>"
+                + "<total_fee>" + paramMap.get("total_fee") + "</total_fee>"
+                + "<trade_type>" + paramMap.get("trade_type") + "</trade_type>"
+                + "<sign>" + sign + "</sign>"
+                + "</xml>";
+
+        // 发送请求并获取响应
+        String responseXml = sendRequest(requestXml, "https://api.mch.weixin.qq.com/pay/unifiedorder");
+
+        // 解析响应 XML 并获取支付二维码链接
+        String codeUrl = parseCodeUrl(responseXml);
+
+        return codeUrl;
     }
 
     /**

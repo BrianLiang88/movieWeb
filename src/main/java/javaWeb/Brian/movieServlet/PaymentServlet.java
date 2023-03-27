@@ -1,4 +1,4 @@
-package javaWeb.Brian;
+package javaWeb.Brian.movieServlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
