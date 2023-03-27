@@ -71,7 +71,7 @@ public class CartServlet extends HttpServlet {
                 Movie movie = new Movie();
                 movie.setId(rs.getInt("id"));
                 movie.setName(rs.getString("name"));
-                movie.setPrice(rs.getDouble("price"));
+                //movie.setPrice(rs.getDouble("price"));
                 cart.add(movie);
             }
         } catch (SQLException e) {
